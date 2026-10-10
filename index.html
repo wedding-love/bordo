@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Marck+Script&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ============================================================
@@ -43,6 +43,10 @@
       --safe-b: env(safe-area-inset-bottom, 0px);
       --safe-l: env(safe-area-inset-left, 0px);
       --safe-r: env(safe-area-inset-right, 0px);
+
+      /* Скорость reveal-анимаций */
+      --reveal-duration: .95s;
+      --reveal-ease: cubic-bezier(.22, .9, .28, 1);
     }
 
     /* ============================================================
@@ -262,16 +266,20 @@
       gap: clamp(48px, 8vw, 110px);
     }
 
+    /* ============================================================
+       ЗАГОЛОВКИ С ЗАВИТКАМИ — MARCK SCRIPT
+       ============================================================ */
     .section-title {
-      font-family: 'Montserrat', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: clamp(26px, 3.6vw, 44px);
-      line-height: 1.15;
-      letter-spacing: .02em;
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(40px, 5.6vw, 72px);
+      line-height: 1.1;
+      letter-spacing: 0;
       color: var(--wine-600);
       text-align: center;
       margin-bottom: clamp(28px, 4vw, 48px);
       word-break: break-word;
+      text-shadow: 0 2px 24px rgba(142, 31, 61, .12);
     }
 
     /* ============================================================
@@ -460,14 +468,15 @@
     }
 
     .meeting-title {
-      font-family: 'Montserrat', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: clamp(34px, 5vw, 64px);
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(44px, 6vw, 84px);
       line-height: 1.1;
-      letter-spacing: .02em;
+      letter-spacing: 0;
       color: var(--wine-600);
       margin-bottom: clamp(12px, 1.6vw, 18px);
       word-break: break-word;
+      text-shadow: 0 2px 24px rgba(142, 31, 61, .12);
     }
 
     .meeting-sub {
@@ -767,9 +776,7 @@
     }
 
     .form-input::placeholder,
-    .form-textarea::placeholder {
-      color: rgba(109, 21, 48, .35);
-    }
+    .form-textarea::placeholder { color: rgba(109, 21, 48, .35); }
 
     .form-input:focus,
     .form-textarea:focus {
@@ -778,28 +785,12 @@
       box-shadow: 0 0 0 4px rgba(142, 31, 61, .1);
     }
 
-    .form-textarea {
-      resize: vertical;
-      min-height: 96px;
-    }
+    .form-textarea { resize: vertical; min-height: 96px; }
 
-    .radio-group {
-      display: flex;
-      gap: clamp(10px, 1.4vw, 16px);
-      flex-wrap: wrap;
-    }
+    .radio-group { display: flex; gap: clamp(10px, 1.4vw, 16px); flex-wrap: wrap; }
 
-    .radio-item {
-      position: relative;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .radio-item input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
+    .radio-item { position: relative; flex: 1 1 auto; min-width: 0; }
+    .radio-item input { position: absolute; opacity: 0; pointer-events: none; }
 
     .radio-item label {
       display: flex;
@@ -836,7 +827,6 @@
     .radio-item input:checked + label {
       border-color: var(--cherry);
       background: rgba(142, 31, 61, .06);
-      color: var(--wine-600);
       font-weight: 600;
     }
 
@@ -845,26 +835,14 @@
       background: var(--cherry);
     }
 
-    .radio-item input:focus-visible + label {
-      box-shadow: 0 0 0 4px rgba(142, 31, 61, .15);
-    }
-
     .check-group {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: clamp(8px, 1.2vw, 12px);
     }
 
-    .check-item {
-      position: relative;
-      min-width: 0;
-    }
-
-    .check-item input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
+    .check-item { position: relative; min-width: 0; }
+    .check-item input { position: absolute; opacity: 0; pointer-events: none; }
 
     .check-item label {
       display: flex;
@@ -909,15 +887,7 @@
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-6.5'/></svg>");
     }
 
-    .check-item input:focus-visible + label {
-      box-shadow: 0 0 0 4px rgba(142, 31, 61, .15);
-    }
-
-    .submit-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: clamp(24px, 3vw, 34px);
-    }
+    .submit-wrap { display: flex; justify-content: center; margin-top: clamp(24px, 3vw, 34px); }
 
     .submit-btn {
       display: inline-flex;
@@ -941,23 +911,12 @@
       max-width: 320px;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 22px 44px rgba(142, 31, 61, .5);
-    }
-
-    .submit-btn:active {
-      transform: translateY(-1px);
-    }
-
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 22px 44px rgba(142, 31, 61, .5); }
+    .submit-btn:active { transform: translateY(-1px); }
     .submit-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
     }
 
     .form-success {
@@ -983,19 +942,15 @@
     }
 
     .form-success-icon svg {
-      width: 30px;
-      height: 30px;
-      stroke: #fdf7f2;
-      fill: none;
-      stroke-width: 2.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 30px; height: 30px;
+      stroke: #fdf7f2; fill: none;
+      stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
     }
 
     .form-success-title {
-      font-family: 'Czizh', 'Montserrat', sans-serif;
-      font-weight: normal;
-      font-size: clamp(32px, 4.4vw, 48px);
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(40px, 5.6vw, 64px);
       line-height: 1;
       color: var(--wine-600);
     }
@@ -1009,7 +964,7 @@
     }
 
     /* ============================================================
-       ФИНАЛЬНЫЙ БЛОК — Мы очень вас ждём + фото
+       ФИНАЛЬНЫЙ БЛОК
        ============================================================ */
     .final {
       display: flex;
@@ -1020,11 +975,12 @@
     }
 
     .final-text {
-      font-family: 'Caveat', cursive;
-      font-size: clamp(38px, 6vw, 76px);
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(44px, 6.5vw, 82px);
       line-height: 1.1;
       color: var(--wine-600);
-      letter-spacing: .01em;
+      letter-spacing: 0;
       text-shadow: 0 4px 30px rgba(142, 31, 61, .15);
     }
 
@@ -1043,6 +999,44 @@
       box-shadow: none;
       filter: none;
     }
+
+    /* ============================================================
+       REVEAL-АНИМАЦИИ ПРИ ПРОКРУТКЕ
+       ============================================================ */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-zoom {
+      opacity: 0;
+      transition:
+        opacity var(--reveal-duration) var(--reveal-ease),
+        transform var(--reveal-duration) var(--reveal-ease);
+      transition-delay: var(--reveal-delay, 0s);
+      will-change: opacity, transform;
+    }
+
+    .reveal         { transform: translate3d(0, 46px, 0); }
+    .reveal-left    { transform: translate3d(-56px, 0, 0); }
+    .reveal-right   { transform: translate3d(56px, 0, 0); }
+    .reveal-zoom    { transform: scale(.86); }
+
+    .reveal.is-visible,
+    .reveal-left.is-visible,
+    .reveal-right.is-visible,
+    .reveal-zoom.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      will-change: auto;
+    }
+
+    /* Сердечки — каскад */
+    .heart-color:nth-child(1) { --reveal-delay: .0s; }
+    .heart-color:nth-child(2) { --reveal-delay: .12s; }
+    .heart-color:nth-child(3) { --reveal-delay: .24s; }
+    .heart-color:nth-child(4) { --reveal-delay: .36s; }
+
+    /* Заголовки секций — короткая задержка после появления */
+    .section-title.reveal { --reveal-delay: .05s; }
 
     /* ============================================================
        АНИМАЦИИ
@@ -1101,25 +1095,20 @@
       .name { padding: 0; }
       .amp  { font-size: .7em; }
 
-      .divider {
-        margin: 18px auto 28px;
-        width: min(180px, 60%);
-      }
+      .divider { margin: 18px auto 28px; width: min(180px, 60%); }
 
-      .polaroid {
-        width: min(82vw, 380px);
-        padding: 12px;
-      }
+      .polaroid { width: min(82vw, 380px); padding: 12px; }
       .gallery .polaroid:only-child { --rot: -3deg; }
 
-      .quote {
-        margin-top: 34px;
-        font-size: clamp(20px, 6vw, 26px);
-        line-height: 1.35;
-        padding: 0 4px;
-      }
+      .quote { margin-top: 34px; font-size: clamp(20px, 6vw, 26px); line-height: 1.35; padding: 0 4px; }
 
       .white-inner { gap: 40px; }
+
+      /* Заголовки на мобильном */
+      .section-title { font-size: clamp(38px, 11vw, 56px); margin-bottom: 22px; }
+      .meeting-title { font-size: clamp(40px, 12vw, 60px); }
+      .final-text    { font-size: clamp(42px, 13vw, 62px); }
+      .form-success-title { font-size: clamp(38px, 11vw, 52px); }
 
       .music-btn { width: 70px; height: 70px; }
       .music-btn::after { inset: -8px; }
@@ -1127,17 +1116,12 @@
 
       .calendar { gap: 3px; }
 
-      .cal-day {
-        padding: 10px 1px 8px;
-        border-radius: 8px;
-        gap: 2px;
-      }
+      .cal-day { padding: 10px 1px 8px; border-radius: 8px; gap: 2px; }
       .cal-weekday { font-size: 8px; letter-spacing: .08em; }
       .cal-date    { font-size: clamp(18px, 5.5vw, 24px); }
       .cal-month   { font-size: 7px; letter-spacing: .08em; }
 
       .meeting { gap: 28px; }
-      .meeting-title { font-size: clamp(26px, 7.5vw, 34px); margin-bottom: 6px; }
       .meeting-sub { font-size: 14px; line-height: 1.5; margin-bottom: 20px; max-width: 92%; }
 
       .map-btn { padding: 14px 26px; font-size: 11px; letter-spacing: .1em; gap: 9px; }
@@ -1149,7 +1133,6 @@
       .arrow-svg { width: 76px; margin-top: 2px; }
       .meeting-polaroid { width: clamp(160px, 46vw, 220px); --rot: 4deg; }
 
-      .section-title { margin-bottom: 22px; }
       .timeline-list { max-width: 100%; }
       .tl-item { max-width: 56%; }
       .tl-time { font-size: clamp(42px, 13vw, 64px); }
@@ -1167,11 +1150,7 @@
       .form-label { font-size: 10px; }
 
       .form-input,
-      .form-textarea {
-        padding: 12px 14px;
-        font-size: 14px;
-        border-radius: 10px;
-      }
+      .form-textarea { padding: 12px 14px; font-size: 14px; border-radius: 10px; }
 
       .radio-group { gap: 8px; }
       .radio-item label { padding: 11px 10px; font-size: 12px; gap: 6px; }
@@ -1183,11 +1162,15 @@
 
       .submit-btn { padding: 16px 28px; font-size: 12px; max-width: 100%; }
 
-      .form-success-title { font-size: clamp(28px, 8vw, 38px); }
       .form-success-text { font-size: 13px; }
 
-      .final-text { font-size: clamp(32px, 9vw, 52px); }
       .final-photo { max-width: 100%; }
+
+      /* Меньше дистанция сдвига на мобильном — чтобы анимация не "дёргала" */
+      .reveal       { transform: translate3d(0, 32px, 0); }
+      .reveal-left  { transform: translate3d(-32px, 0, 0); }
+      .reveal-right { transform: translate3d(32px, 0, 0); }
+      .reveal-zoom  { transform: scale(.9); }
     }
 
     /* ============================================================
@@ -1203,7 +1186,6 @@
       .cal-month   { font-size: 6px; }
 
       .meeting { gap: 24px; }
-      .meeting-title { font-size: 24px; }
       .meeting-sub   { font-size: 13px; margin-bottom: 16px; }
 
       .map-btn { padding: 12px 22px; font-size: 10px; letter-spacing: .08em; }
@@ -1285,6 +1267,13 @@
         animation-iteration-count: 1 !important;
         transition-duration: .001ms !important;
       }
+      .reveal,
+      .reveal-left,
+      .reveal-right,
+      .reveal-zoom {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
     @media (prefers-contrast: more) {
@@ -1337,7 +1326,7 @@
 
       <!-- Круглая кнопка музыки -->
       <div class="music-row">
-        <div class="music-block" id="musicBlock">
+        <div class="music-block reveal-zoom" id="musicBlock">
           <button class="music-btn" id="musicBtn" type="button" aria-pressed="false" aria-label="Включить музыку">
             <span class="music-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24">
@@ -1352,7 +1341,7 @@
       </div>
 
       <!-- Календарь -->
-      <div class="calendar">
+      <div class="calendar reveal">
         <div class="cal-day is-start">
           <span class="cal-weekday">Пт</span>
           <span class="cal-date">01</span>
@@ -1392,7 +1381,7 @@
 
       <!-- Место встречи -->
       <div class="meeting">
-        <div class="meeting-info">
+        <div class="meeting-info reveal-left">
           <h2 class="meeting-title">Место встречи</h2>
           <p class="meeting-sub">г. Москва, ул. Пушкина, д. 10</p>
 
@@ -1408,7 +1397,7 @@
           </a>
         </div>
 
-        <div class="meeting-visual">
+        <div class="meeting-visual reveal-right">
           <div class="meeting-pointer">
             <span class="meeting-note">вот тут<br>мы встретимся</span>
             <svg class="arrow-svg" viewBox="0 0 200 110" fill="none" aria-hidden="true">
@@ -1429,15 +1418,15 @@
 
       <!-- Тайминг -->
       <div class="timeline">
-        <h2 class="section-title">Тайминг</h2>
+        <h2 class="section-title reveal">Тайминг</h2>
 
         <div class="timeline-list">
-          <div class="tl-item tl-left">
+          <div class="tl-item tl-left reveal-left">
             <div class="tl-time">19:00</div>
             <div class="tl-desc">Сбор гостей, встреча и лёгкий фуршет</div>
           </div>
 
-          <div class="tl-arrow" aria-hidden="true">
+          <div class="tl-arrow reveal" aria-hidden="true">
             <svg viewBox="0 0 1000 130" preserveAspectRatio="xMidYMid meet">
               <path d="M 70 15 C 250 15, 620 60, 900 110"
                     stroke="currentColor" stroke-width="2.4" fill="none"
@@ -1446,12 +1435,12 @@
             </svg>
           </div>
 
-          <div class="tl-item tl-right">
+          <div class="tl-item tl-right reveal-right">
             <div class="tl-time">20:00</div>
             <div class="tl-desc">Начало банкета, первый тост и ужин</div>
           </div>
 
-          <div class="tl-arrow" aria-hidden="true">
+          <div class="tl-arrow reveal" aria-hidden="true">
             <svg viewBox="0 0 1000 130" preserveAspectRatio="xMidYMid meet">
               <path d="M 930 15 C 750 15, 380 60, 100 110"
                     stroke="currentColor" stroke-width="2.4" fill="none"
@@ -1460,12 +1449,12 @@
             </svg>
           </div>
 
-          <div class="tl-item tl-left">
+          <div class="tl-item tl-left reveal-left">
             <div class="tl-time">22:00</div>
             <div class="tl-desc">Торт, фейерверк и первый танец</div>
           </div>
 
-          <div class="tl-arrow" aria-hidden="true">
+          <div class="tl-arrow reveal" aria-hidden="true">
             <svg viewBox="0 0 1000 130" preserveAspectRatio="xMidYMid meet">
               <path d="M 70 15 C 250 15, 620 60, 900 110"
                     stroke="currentColor" stroke-width="2.4" fill="none"
@@ -1474,7 +1463,7 @@
             </svg>
           </div>
 
-          <div class="tl-item tl-right">
+          <div class="tl-item tl-right reveal-right">
             <div class="tl-time">23:00</div>
             <div class="tl-desc">Танцы, веселье и поздравления</div>
           </div>
@@ -1483,16 +1472,16 @@
 
       <!-- Дресс-код -->
       <div class="dress-code">
-        <h2 class="section-title">Дресс-код</h2>
+        <h2 class="section-title reveal">Дресс-код</h2>
 
-        <p class="dress-text">
+        <p class="dress-text reveal">
           Нам будет очень приятно, если вы поддержите цветовую гамму нашего вечера.
           Выберите один из оттенков ниже — и пусть образ будет таким же тёплым,
           как наша встреча.
         </p>
 
         <div class="hearts-row">
-          <div class="heart-color">
+          <div class="heart-color reveal-zoom">
             <svg class="heart-svg" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="#6d1530"
                     d="M12 21s-7-4.55-9.5-9C.9 8.4 2.6 4.5 6.4 4.5c2.2 0 3.9 1.2 5.6 3.2 1.7-2 3.4-3.2 5.6-3.2 3.8 0 5.5 3.9 3.9 7.5C19 16.45 12 21 12 21z"/>
@@ -1500,7 +1489,7 @@
             <span class="heart-label">Бордо</span>
           </div>
 
-          <div class="heart-color">
+          <div class="heart-color reveal-zoom">
             <svg class="heart-svg" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="#8e1f3d"
                     d="M12 21s-7-4.55-9.5-9C.9 8.4 2.6 4.5 6.4 4.5c2.2 0 3.9 1.2 5.6 3.2 1.7-2 3.4-3.2 5.6-3.2 3.8 0 5.5 3.9 3.9 7.5C19 16.45 12 21 12 21z"/>
@@ -1508,7 +1497,7 @@
             <span class="heart-label">Вишня</span>
           </div>
 
-          <div class="heart-color">
+          <div class="heart-color reveal-zoom">
             <svg class="heart-svg" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="#c76a86"
                     d="M12 21s-7-4.55-9.5-9C.9 8.4 2.6 4.5 6.4 4.5c2.2 0 3.9 1.2 5.6 3.2 1.7-2 3.4-3.2 5.6-3.2 3.8 0 5.5 3.9 3.9 7.5C19 16.45 12 21 12 21z"/>
@@ -1516,7 +1505,7 @@
             <span class="heart-label">Пудра</span>
           </div>
 
-          <div class="heart-color">
+          <div class="heart-color reveal-zoom">
             <svg class="heart-svg" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="#d9a86c"
                     d="M12 21s-7-4.55-9.5-9C.9 8.4 2.6 4.5 6.4 4.5c2.2 0 3.9 1.2 5.6 3.2 1.7-2 3.4-3.2 5.6-3.2 3.8 0 5.5 3.9 3.9 7.5C19 16.45 12 21 12 21z"/>
@@ -1528,9 +1517,9 @@
 
       <!-- Анкета гостя -->
       <div class="guest-form">
-        <h2 class="section-title">Анкета гостя</h2>
+        <h2 class="section-title reveal">Анкета гостя</h2>
 
-        <form class="form-card" id="guestForm" novalidate>
+        <form class="form-card reveal" id="guestForm" novalidate>
 
           <div class="form-row">
             <div class="form-group">
@@ -1632,17 +1621,12 @@
         </div>
       </div>
 
-      <!-- ============================================================
-           ФИНАЛЬНЫЙ БЛОК — Мы очень вас ждём + фото
-           ============================================================ -->
-      <div class="final">
-
+      <!-- Финальный блок -->
+      <div class="final reveal">
         <h2 class="final-text">Мы очень вас ждём!</h2>
-
         <figure class="final-photo">
           <img src="56.jpg" alt="Мы очень вас ждём">
         </figure>
-
       </div>
 
     </div>
@@ -1654,7 +1638,37 @@
     (function () {
       'use strict';
 
-      /* ---------- Полароиды ---------- */
+      /* =========================================================
+         REVEAL-АНИМАЦИИ ПРИ ПРОКРУТКЕ (IntersectionObserver)
+         ========================================================= */
+      var revealEls = document.querySelectorAll(
+        '.reveal, .reveal-left, .reveal-right, .reveal-zoom'
+      );
+
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        // Если пользователь против анимаций или браузер старый — показать всё сразу
+        revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -8% 0px'
+        });
+
+        revealEls.forEach(function (el) { observer.observe(el); });
+      }
+
+      /* =========================================================
+         ПОЛАРОИДЫ
+         ========================================================= */
       var polaroids = document.querySelectorAll('.polaroid');
 
       polaroids.forEach(function (card) {
@@ -1671,7 +1685,9 @@
         }
       });
 
-      /* ---------- Кнопка музыки ---------- */
+      /* =========================================================
+         КНОПКА МУЗЫКИ
+         ========================================================= */
       var btn     = document.getElementById('musicBtn');
       var textEl  = document.getElementById('musicText');
       var block   = document.getElementById('musicBlock');
@@ -1694,11 +1710,8 @@
           var playPromise = audio.play();
 
           if (playPromise && typeof playPromise.then === 'function') {
-            playPromise.then(function () {
-              setPlaying(true);
-            }).catch(function () {
-              setPlaying(!btn.classList.contains('playing'));
-            });
+            playPromise.then(function () { setPlaying(true); })
+                       .catch(function () { setPlaying(!btn.classList.contains('playing')); });
           } else {
             setPlaying(true);
           }
@@ -1708,7 +1721,9 @@
         }
       });
 
-      /* ---------- Анкета гостя ---------- */
+      /* =========================================================
+         АНКЕТА ГОСТЯ
+         ========================================================= */
       var form    = document.getElementById('guestForm');
       var success = document.getElementById('formSuccess');
 
@@ -1738,7 +1753,7 @@
 
         console.log('Данные анкеты:', data);
 
-        // Отправка в Telegram (раскомментируй и заполни свои значения)
+        // Отправка в Telegram (раскомментируй и заполни)
         /*
         var TG_TOKEN = 'ТВОЙ_ТОКЕН_БОТА';
         var TG_CHAT  = 'ТВОЙ_CHAT_ID';
@@ -1748,7 +1763,6 @@
                    'Присутствие: ' + data.attend + '%0A' +
                    'Алкоголь: ' + data.alcohol.join(', ') + '%0A' +
                    'Пожелания: ' + encodeURIComponent(data.wishes);
-
         fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage?chat_id=' + TG_CHAT + '&text=' + text);
         */
 

@@ -37,7 +37,7 @@
       --polaroid: #fdf7f2;
       --white-bg: #ffffff;
 
-      --pad-x: clamp(16px, 4vw, 60px);
+      --pad-x: clamp(14px, 4vw, 60px);
 
       --safe-t: env(safe-area-inset-top, 0px);
       --safe-b: env(safe-area-inset-bottom, 0px);
@@ -82,7 +82,7 @@
     a, button { -webkit-tap-highlight-color: transparent; }
 
     /* ============================================================
-       HERO — БОРДОВАЯ СЕКЦИЯ
+       HERO
        ============================================================ */
     .hero {
       position: relative;
@@ -132,18 +132,19 @@
       margin-bottom: clamp(14px, 2vw, 20px);
     }
 
-    /* ---------- Имена ---------- */
+    /* ---------- ИМЕНА — ВСЕГДА В ОДНУ СТРОКУ ---------- */
     .names {
       font-family: 'Czizh', 'Playfair Display', Georgia, serif;
       font-weight: normal;
-      font-size: clamp(44px, 9vw, 120px);
-      line-height: 1;
+      font-size: clamp(26px, 8vw, 120px);
+      line-height: 1.05;
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-wrap: nowrap;          /* одна строка всегда */
+      align-items: baseline;
       justify-content: center;
-      gap: 0 clamp(10px, 2vw, 26px);
-      word-break: break-word;
+      gap: 0 clamp(6px, 1.6vw, 26px);
+      white-space: nowrap;
+      padding: 0 4px;
     }
 
     .name {
@@ -153,19 +154,20 @@
       color: transparent;
       text-shadow: 0 0 40px rgba(199, 106, 134, .35);
       padding: 0 .05em;
+      white-space: nowrap;
     }
 
     .amp {
       font-family: 'Montserrat', system-ui, sans-serif;
       font-weight: 300;
-      font-size: .55em;
+      font-size: .6em;
       color: var(--gold);
-      opacity: .85;
-      transform: translateY(.05em);
+      opacity: .9;
+      transform: translateY(-.05em);
       line-height: 1;
+      flex-shrink: 0;
     }
 
-    /* ---------- Разделитель (без смайлов) ---------- */
     .divider {
       width: min(220px, 55%);
       height: 1px;
@@ -237,12 +239,11 @@
       filter: saturate(1.15) contrast(1.05) sepia(0);
     }
 
-    /* ---------- Фраза о любви ---------- */
     .quote {
       max-width: 660px;
       margin: clamp(34px, 6vw, 68px) auto 0;
       font-family: 'Caveat', cursive;
-      font-size: clamp(22px, 3.4vw, 40px);
+      font-size: clamp(20px, 3.4vw, 40px);
       line-height: 1.45;
       color: #f5dde4;
       text-shadow: 0 0 30px rgba(199, 106, 134, .45);
@@ -250,7 +251,7 @@
     }
 
     /* ============================================================
-       WHITE SECTION — БЕЛАЯ СЕКЦИЯ
+       WHITE SECTION
        ============================================================ */
     .white-section {
       position: relative;
@@ -269,52 +270,77 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: clamp(44px, 7vw, 100px);
+      gap: clamp(40px, 7vw, 100px);
     }
 
-    /* ---------- Кнопка музыки ---------- */
+    /* ============================================================
+       КРУГЛАЯ КНОПКА МУЗЫКИ
+       ============================================================ */
     .music-row {
       display: flex;
       justify-content: center;
     }
 
-    .music-btn {
-      display: inline-flex;
+    .music-block {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: clamp(10px, 1.4vw, 14px);
-      padding: clamp(13px, 1.6vw, 16px) clamp(22px, 3vw, 32px);
-      border: 1.5px solid rgba(109, 21, 48, .3);
+      gap: 14px;
+    }
+
+    .music-btn {
+      width: clamp(64px, 8vw, 84px);
+      height: clamp(64px, 8vw, 84px);
+      border-radius: 50%;
+      border: 1.5px solid rgba(109, 21, 48, .35);
       background: transparent;
       color: var(--wine-600);
-      font-size: clamp(11px, 1.1vw, 13px);
-      font-weight: 500;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       transition: all .35s ease;
       user-select: none;
-      text-align: center;
-      max-width: 100%;
-      line-height: 1.2;
+      padding: 0;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .music-btn::after {
+      /* Тонкая внешняя обводка-«кольцо» */
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(109, 21, 48, .12);
+      pointer-events: none;
+      transition: all .35s ease;
     }
 
     .music-btn:hover {
-      background: rgba(109, 21, 48, .06);
-      border-color: rgba(109, 21, 48, .55);
-      transform: translateY(-2px);
+      background: rgba(109, 21, 48, .07);
+      border-color: rgba(109, 21, 48, .6);
+      transform: translateY(-3px);
+    }
+    .music-btn:hover::after {
+      border-color: rgba(109, 21, 48, .3);
+      inset: -12px;
     }
 
     .music-btn.playing {
       background: linear-gradient(135deg, var(--cherry), var(--wine-600));
       color: #fdf7f2;
       border-color: transparent;
-      box-shadow: 0 14px 34px rgba(142, 31, 61, .4);
+      box-shadow: 0 16px 40px rgba(142, 31, 61, .45);
+    }
+    .music-btn.playing::after {
+      border-color: rgba(142, 31, 61, .35);
+      inset: -14px;
     }
 
     .music-icon {
-      width: clamp(18px, 2vw, 22px);
-      height: clamp(18px, 2vw, 22px);
+      width: 40%;
+      height: 40%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -335,7 +361,26 @@
       animation: pulse 1.2s ease-in-out infinite;
     }
 
-    /* ---------- Календарь ---------- */
+    .music-text {
+      font-size: clamp(10px, 1.1vw, 12px);
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--wine-600);
+      opacity: .75;
+      text-align: center;
+      line-height: 1.3;
+      transition: color .35s ease;
+    }
+
+    .music-block.is-playing .music-text {
+      color: var(--cherry);
+      opacity: 1;
+    }
+
+    /* ============================================================
+       КАЛЕНДАРЬ
+       ============================================================ */
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -407,10 +452,7 @@
       align-items: center;
     }
 
-    .meeting-info {
-      text-align: left;
-      min-width: 0;
-    }
+    .meeting-info { text-align: left; min-width: 0; }
 
     .meeting-title {
       font-family: 'Montserrat', system-ui, sans-serif;
@@ -470,7 +512,6 @@
       stroke-linejoin: round;
     }
 
-    /* ---------- Стрелка + полароид ---------- */
     .meeting-visual {
       display: flex;
       align-items: flex-end;
@@ -558,27 +599,28 @@
     @media (max-width: 1024px) {
       .meeting {
         grid-template-columns: minmax(0, 1fr) auto;
-        gap: clamp(20px, 3vw, 40px);
+        gap: clamp(18px, 3vw, 36px);
       }
       .meeting-polaroid { width: clamp(140px, 20vw, 200px); }
       .arrow-svg { width: clamp(60px, 8vw, 90px); }
     }
 
     /* ============================================================
-       МАЛЫЕ ПЛАНШЕТЫ / БОЛЬШИЕ ТЕЛЕФОНЫ (≤ 860px)
+       МАЛЫЕ ПЛАНШЕТЫ (≤ 860px)
        ============================================================ */
     @media (max-width: 860px) {
       .meeting {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: clamp(28px, 5vw, 40px);
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: clamp(14px, 2.5vw, 24px);
+        align-items: center;
+        text-align: left;
       }
-      .meeting-info { text-align: center; }
-      .meeting-sub { margin-left: auto; margin-right: auto; }
-      .meeting-visual {
-        justify-content: center;
-        margin: 0 auto;
-      }
+      .meeting-info { text-align: left; }
+      .meeting-sub { margin-left: 0; margin-right: 0; }
+      .meeting-title { font-size: clamp(24px, 4.5vw, 34px); }
+      .meeting-polaroid { width: clamp(130px, 22vw, 180px); }
+      .meeting-note { font-size: clamp(16px, 2.4vw, 22px); }
+      .arrow-svg { width: clamp(50px, 7vw, 80px); }
     }
 
     /* ============================================================
@@ -586,7 +628,6 @@
        ============================================================ */
     @media (max-width: 640px) {
 
-      /* --- Hero --- */
       .hero {
         padding:
           calc(32px + var(--safe-t))
@@ -600,37 +641,24 @@
         margin-bottom: 14px;
       }
 
-      /* Имена — в столбик */
+      /* --- ИМЕНА: одна строка, компактнее --- */
       .names {
-        flex-direction: column;
+        font-size: clamp(24px, 8.5vw, 46px);
+        gap: 0 6px;
         flex-wrap: nowrap;
-        gap: 0;
-        font-size: clamp(60px, 17vw, 84px);
-        line-height: 1;
+        white-space: nowrap;
+        padding: 0 2px;
       }
 
-      .name {
-        display: block;
-        width: 100%;
-        line-height: 1;
-        padding: 0;
-      }
+      .name { padding: 0; }
+      .amp  { font-size: .7em; }
 
-      .amp {
-        display: block;
-        font-size: .5em;
-        margin: -4px 0 -6px;
-        transform: none;
-        opacity: .75;
-      }
-
-      /* Разделитель */
       .divider {
-        margin: 18px auto 24px;
-        width: min(160px, 50%);
+        margin: 16px auto 22px;
+        width: min(160px, 55%);
       }
 
-      /* Полароиды — 3 в один ряд */
+      /* 3 полароида в один ряд */
       .gallery {
         flex-wrap: nowrap;
         gap: 6px;
@@ -657,102 +685,107 @@
         transform: rotate(0deg) scale(1.08);
       }
 
-      /* Фраза */
       .quote {
-        margin-top: 26px;
-        font-size: clamp(22px, 6vw, 28px);
+        margin-top: 24px;
+        font-size: clamp(20px, 6vw, 26px);
         line-height: 1.35;
         padding: 0 4px;
       }
 
       /* --- Белая секция --- */
-      .white-inner {
-        gap: 40px;
-      }
+      .white-inner { gap: 36px; }
 
-      /* Кнопка музыки — на всю ширину */
+      /* Круглая кнопка музыки */
       .music-btn {
-        width: 100%;
-        max-width: 340px;
-        justify-content: center;
-        padding: 14px 20px;
-        font-size: 11px;
-        letter-spacing: .12em;
+        width: 70px;
+        height: 70px;
+      }
+      .music-btn::after { inset: -8px; }
+
+      .music-text {
+        font-size: 10px;
+        letter-spacing: .16em;
       }
 
-      /* --- Календарь --- */
-      .calendar { gap: 4px; }
+      /* Календарь в одну строку */
+      .calendar { gap: 3px; }
 
       .cal-day {
         padding: 10px 1px 8px;
-        border-radius: 10px;
+        border-radius: 8px;
         gap: 2px;
       }
 
-      .cal-weekday {
-        font-size: 8px;
-        letter-spacing: .1em;
+      .cal-weekday { font-size: 8px; letter-spacing: .08em; }
+      .cal-date    { font-size: clamp(18px, 5.5vw, 24px); }
+      .cal-month   { font-size: 7px; letter-spacing: .08em; }
+
+      /* --- Место встречи: 2 колонки --- */
+      .meeting {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        text-align: left;
       }
 
-      .cal-date {
-        font-size: clamp(20px, 6vw, 26px);
-      }
-
-      .cal-month {
-        font-size: 7px;
-        letter-spacing: .1em;
-      }
-
-      /* --- Место встречи --- */
-      .meeting { gap: 24px; }
+      .meeting-info { text-align: left; min-width: 0; }
 
       .meeting-title {
-        font-size: clamp(24px, 7vw, 32px);
+        font-size: clamp(18px, 5vw, 22px);
+        margin-bottom: 4px;
+        line-height: 1.2;
       }
 
       .meeting-sub {
-        margin-bottom: 22px;
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 12px;
         max-width: 100%;
+        opacity: .85;
       }
 
       .map-btn {
         width: 100%;
-        max-width: 340px;
+        max-width: 160px;
+        padding: 10px 12px;
+        font-size: 9px;
+        letter-spacing: .08em;
+        gap: 6px;
         justify-content: center;
       }
+      .map-btn svg { width: 12px; height: 12px; }
 
-      /* Полароид + стрелка: вертикальный стек */
       .meeting-visual {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-      }
-
-      .meeting-polaroid {
-        --rot: 3deg;
-        width: min(64vw, 260px);
-        margin-bottom: 4px;
-        order: 1;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 4px;
+        justify-content: flex-end;
       }
 
       .meeting-pointer {
-        align-items: center;
-        margin: 0;
-        order: 2;
+        align-items: flex-end;
+        margin-bottom: 22px;
+        gap: 0;
+        max-width: 78px;
       }
 
       .meeting-note {
-        text-align: center;
-        transform: rotate(-3deg);
-        font-size: clamp(22px, 6vw, 28px);
-        order: 1;
+        font-size: 13px;
+        line-height: 1.05;
+        transform: rotate(-6deg);
+        text-align: right;
       }
 
       .arrow-svg {
-        width: 70px;
-        transform: rotate(135deg);
-        margin-top: -4px;
-        order: 2;
+        width: 52px;
+        margin-top: 0;
+        transform: none;
+      }
+
+      .meeting-polaroid {
+        width: clamp(100px, 30vw, 130px);
+        --rot: 4deg;
+        margin-bottom: 0;
       }
     }
 
@@ -760,36 +793,89 @@
        УЗКИЕ МОБИЛЬНЫЕ (≤ 480px)
        ============================================================ */
     @media (max-width: 480px) {
-      .names { font-size: clamp(52px, 18vw, 72px); }
+      /* Имена — ещё компактнее, но всё ещё в одну строку */
+      .names {
+        font-size: clamp(22px, 8.5vw, 38px);
+        gap: 0 5px;
+      }
 
       .gallery { gap: 5px; }
       .gallery .polaroid { padding: 5px; }
 
-      .cal-day {
-        padding: 8px 0 6px;
-        border-radius: 8px;
-      }
+      .cal-day { padding: 8px 0 6px; border-radius: 7px; }
       .cal-weekday { font-size: 7px; }
-      .cal-date    { font-size: clamp(18px, 5.5vw, 22px); }
+      .cal-date    { font-size: clamp(16px, 5vw, 20px); }
       .cal-month   { font-size: 6px; }
 
-      .meeting-polaroid { width: min(70vw, 240px); }
-      .arrow-svg { width: 60px; }
+      .meeting { gap: 6px; }
+      .meeting-title { font-size: 17px; }
+      .meeting-sub   { font-size: 10px; margin-bottom: 10px; }
+
+      .map-btn {
+        padding: 8px 10px;
+        font-size: 8px;
+        letter-spacing: .06em;
+        max-width: 140px;
+      }
+
+      .meeting-pointer { margin-bottom: 18px; max-width: 70px; }
+      .meeting-note    { font-size: 12px; }
+      .arrow-svg       { width: 44px; }
+
+      .meeting-polaroid { width: clamp(90px, 28vw, 115px); }
     }
 
     /* ============================================================
        ОЧЕНЬ УЗКИЕ (≤ 360px)
        ============================================================ */
     @media (max-width: 360px) {
-      .names { font-size: clamp(46px, 17vw, 60px); }
+      .names {
+        font-size: clamp(20px, 8.5vw, 30px);
+        gap: 0 4px;
+      }
 
       .gallery .polaroid { padding: 4px; }
 
-      .cal-date { font-size: 18px; }
+      .cal-date { font-size: 15px; }
       .cal-weekday { font-size: 6.5px; }
       .cal-month { display: none; }
 
-      .meeting-polaroid { width: 76vw; }
+      /* Место встречи — вертикальный стек */
+      .meeting {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        text-align: center;
+      }
+      .meeting-info { text-align: center; }
+      .meeting-sub { margin-left: auto; margin-right: auto; }
+      .map-btn { width: 100%; max-width: 240px; }
+
+      .meeting-visual {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      .meeting-polaroid {
+        width: min(66vw, 200px);
+        margin-bottom: 4px;
+        order: 1;
+      }
+      .meeting-pointer {
+        align-items: center;
+        margin: 0;
+        max-width: none;
+        order: 2;
+      }
+      .meeting-note {
+        text-align: center;
+        transform: rotate(-3deg);
+        font-size: 18px;
+      }
+      .arrow-svg {
+        width: 60px;
+        transform: rotate(135deg);
+        margin-top: -4px;
+      }
     }
 
     /* ============================================================
@@ -798,7 +884,6 @@
     @media (min-width: 1600px) {
       .card { max-width: 1200px; }
       .white-inner { max-width: 1200px; }
-      .names { font-size: clamp(112px, 8vw, 160px); }
       .polaroid { width: 260px; }
       .meeting-polaroid { width: 260px; }
     }
@@ -836,7 +921,7 @@
 <body>
 
   <!-- ============================================================
-       HERO — БОРДОВАЯ СЕКЦИЯ
+       HERO
        ============================================================ -->
   <section class="hero">
     <main class="card">
@@ -877,18 +962,20 @@
   <section class="white-section">
     <div class="white-inner">
 
-      <!-- Кнопка музыки -->
+      <!-- Круглая кнопка музыки + текст под ней -->
       <div class="music-row">
-        <button class="music-btn" id="musicBtn" type="button" aria-pressed="false">
-          <span class="music-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M9 18V5l12-2v13"/>
-              <circle cx="6" cy="18" r="3"/>
-              <circle cx="18" cy="16" r="3"/>
-            </svg>
-          </span>
+        <div class="music-block" id="musicBlock">
+          <button class="music-btn" id="musicBtn" type="button" aria-pressed="false" aria-label="Включить музыку">
+            <span class="music-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+            </span>
+          </button>
           <span class="music-text" id="musicText">Нажмите чтобы включить</span>
-        </button>
+        </div>
       </div>
 
       <!-- Календарь -->
@@ -951,10 +1038,6 @@
 
         <div class="meeting-visual">
 
-          <figure class="polaroid meeting-polaroid">
-            <div class="photo"><img src="локация.jpg" alt="Место встречи"></div>
-          </figure>
-
           <div class="meeting-pointer">
             <span class="meeting-note">вот тут<br>мы встретимся</span>
             <svg class="arrow-svg" viewBox="0 0 200 110" fill="none" aria-hidden="true">
@@ -967,6 +1050,10 @@
             </svg>
           </div>
 
+          <figure class="polaroid meeting-polaroid">
+            <div class="photo"><img src="локация.jpg" alt="Место встречи"></div>
+          </figure>
+
         </div>
 
       </div>
@@ -974,14 +1061,12 @@
     </div>
   </section>
 
-  <!-- Аудио -->
   <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
 
   <script>
     (function () {
       'use strict';
 
-      /* ---------- Активация полароида по клику ---------- */
       var polaroids = document.querySelectorAll('.polaroid');
 
       polaroids.forEach(function (card) {
@@ -998,10 +1083,20 @@
         }
       });
 
-      /* ---------- Кнопка музыки ---------- */
-      var btn    = document.getElementById('musicBtn');
-      var textEl = document.getElementById('musicText');
-      var audio  = document.getElementById('bgMusic');
+      var btn     = document.getElementById('musicBtn');
+      var textEl  = document.getElementById('musicText');
+      var block   = document.getElementById('musicBlock');
+      var audio   = document.getElementById('bgMusic');
+
+      function setPlaying(isPlaying) {
+        btn.classList.toggle('playing', isPlaying);
+        block.classList.toggle('is-playing', isPlaying);
+        textEl.textContent = isPlaying
+          ? 'Нажмите чтобы выключить'
+          : 'Нажмите чтобы включить';
+        btn.setAttribute('aria-pressed', String(isPlaying));
+        btn.setAttribute('aria-label', isPlaying ? 'Выключить музыку' : 'Включить музыку');
+      }
 
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -1011,27 +1106,17 @@
 
           if (playPromise && typeof playPromise.then === 'function') {
             playPromise.then(function () {
-              btn.classList.add('playing');
-              textEl.textContent = 'Нажмите чтобы выключить';
-              btn.setAttribute('aria-pressed', 'true');
+              setPlaying(true);
             }).catch(function () {
-              btn.classList.toggle('playing');
-              var playing = btn.classList.contains('playing');
-              textEl.textContent = playing
-                ? 'Нажмите чтобы выключить'
-                : 'Нажмите чтобы включить';
-              btn.setAttribute('aria-pressed', String(playing));
+              // Файл music.mp3 не найден — просто переключаем визуально
+              setPlaying(!btn.classList.contains('playing'));
             });
           } else {
-            btn.classList.add('playing');
-            textEl.textContent = 'Нажмите чтобы выключить';
-            btn.setAttribute('aria-pressed', 'true');
+            setPlaying(true);
           }
         } else {
           audio.pause();
-          btn.classList.remove('playing');
-          textEl.textContent = 'Нажмите чтобы включить';
-          btn.setAttribute('aria-pressed', 'false');
+          setPlaying(false);
         }
       });
 

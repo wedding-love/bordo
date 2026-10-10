@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+            <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -47,7 +48,6 @@
       --reveal-duration: 1.35s;
       --reveal-ease: cubic-bezier(.22, .9, .28, 1);
 
-      /* Единый размер заголовков */
       --title-size: clamp(32px, 5vw, 64px);
     }
 
@@ -742,6 +742,51 @@
     }
 
     /* ============================================================
+       ФОТО ДРЕСС-КОДА — два квадрата в одну строку
+       ============================================================ */
+    .dress-photos {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(16px, 3vw, 40px);
+      margin-top: clamp(40px, 6vw, 72px);
+      width: 100%;
+    }
+
+    .dress-photo {
+      flex: 0 1 auto;
+      width: clamp(140px, 24vw, 280px);
+      aspect-ratio: 1 / 1;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow:
+        0 18px 40px rgba(109, 21, 48, .2),
+        0 2px 0 rgba(109, 21, 48, .06);
+      transition: transform .55s cubic-bezier(.2, .9, .25, 1),
+                  box-shadow .55s ease;
+    }
+
+    .dress-photo:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow:
+        0 28px 55px rgba(109, 21, 48, .3),
+        0 3px 0 rgba(109, 21, 48, .08);
+    }
+
+    .dress-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dress-photo:nth-child(1) { --reveal-delay: .1s; }
+    .dress-photo:nth-child(2) { --reveal-delay: .25s; }
+
+    /* ============================================================
        ПОЖЕЛАНИЯ
        ============================================================ */
     .wishes-block {
@@ -1196,6 +1241,10 @@
       .heart-svg { width: clamp(56px, 15vw, 76px); height: clamp(56px, 15vw, 76px); }
       .heart-label { font-size: 9px; letter-spacing: .12em; }
 
+      /* Фото дресс-кода — компактнее */
+      .dress-photos { gap: 12px; margin-top: 32px; }
+      .dress-photo  { width: clamp(120px, 40vw, 200px); }
+
       .form-card { padding: 22px 18px; border-radius: 18px; }
       .form-row { grid-template-columns: 1fr; gap: 14px; margin-bottom: 18px; }
       .form-group { margin-bottom: 18px; gap: 8px; }
@@ -1253,6 +1302,9 @@
       .heart-svg  { width: clamp(46px, 13vw, 64px); height: clamp(46px, 13vw, 64px); }
       .heart-label { font-size: 8px; letter-spacing: .1em; }
 
+      .dress-photos { gap: 10px; margin-top: 28px; }
+      .dress-photo  { width: clamp(110px, 42vw, 180px); }
+
       .form-card { padding: 20px 16px; }
     }
 
@@ -1284,6 +1336,9 @@
 
       .heart-svg { width: 42px; height: 42px; }
       .heart-label { font-size: 7px; }
+
+      .dress-photos { gap: 8px; margin-top: 24px; }
+      .dress-photo  { width: clamp(100px, 44vw, 160px); }
     }
 
     /* ============================================================
@@ -1396,9 +1451,9 @@
 
       <!-- ПРИГЛАШЕНИЕ -->
       <div class="invitation">
+        <h2 class="invitation-title reveal">Приглашаем на нашу свадьбу</h2>
         <p class="invitation-text reveal">
-          Дорогие друзья и близкие! 
-          Мы с радостью приглашаем вас разделить с нами
+          Дорогие друзья и близкие! Мы с радостью приглашаем вас разделить с нами
           самый важный и счастливый день нашей жизни.
         </p>
       </div>
@@ -1575,6 +1630,16 @@
             </svg>
             <span class="heart-label">Золото</span>
           </div>
+        </div>
+
+        <!-- Два квадратных фото — на одной строке -->
+        <div class="dress-photos">
+          <figure class="dress-photo reveal-zoom">
+            <img src="бордо1.jpg" alt="Бордо 1">
+          </figure>
+          <figure class="dress-photo reveal-zoom">
+            <img src="бордо2.jpg" alt="Бордо 2">
+          </figure>
         </div>
       </div>
 

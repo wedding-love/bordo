@@ -1,3 +1,737 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2a0713">
+  <title>Александр &amp; Мария — Наша история</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Marck+Script&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       ЛОКАЛЬНЫЙ ШРИФТ ДЛЯ ИМЁН
+       ============================================================ */
+    @font-face {
+      font-family: 'Czizh';
+      src: url('ofont.ru_Czizh.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ============================================================
+       ПЕРЕМЕННЫЕ
+       ============================================================ */
+    :root {
+      --wine-900: #16040a;
+      --wine-800: #2a0713;
+      --wine-700: #4a0d1f;
+      --wine-600: #6d1530;
+      --cherry:   #8e1f3d;
+      --rose:     #c76a86;
+      --cream:    #f7ede6;
+      --gold:     #d9a86c;
+      --polaroid: #fdf7f2;
+      --white-bg: #ffffff;
+
+      --pad-x: clamp(14px, 4vw, 60px);
+
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+
+      /* Скорость reveal-анимаций — замедлено */
+      --reveal-duration: 1.35s;
+      --reveal-ease: cubic-bezier(.22, .9, .28, 1);
+    }
+
+    /* ============================================================
+       БАЗА
+       ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: var(--cream);
+      background: var(--wine-900);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: clamp(14px, 1.5vw, 16px);
+    }
+
+    img {
+      -webkit-user-drag: none;
+      user-select: none;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button { font-family: inherit; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding:
+        calc(48px + var(--safe-t))
+        calc(var(--pad-x) + var(--safe-r))
+        calc(48px + var(--safe-b))
+        calc(var(--pad-x) + var(--safe-l));
+      overflow: hidden;
+
+      background:
+        radial-gradient(1200px 600px at 50% -10%, var(--wine-600) 0%, transparent 60%),
+        radial-gradient(900px 700px at 85% 110%, var(--cherry) 0%, transparent 55%),
+        linear-gradient(160deg, var(--wine-800) 0%, var(--wine-900) 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 50% 45%, transparent 35%, rgba(0, 0, 0, .6) 100%);
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+      animation: fadeUp 1.1s .1s both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ---------- ИМЕНА — как заголовки (Marck Script), по-русски ---------- */
+    .names {
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(24px, 8vw, 120px);
+      line-height: 1.15;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0 clamp(8px, 1.8vw, 26px);
+      white-space: nowrap;
+      padding: 0 4px;
+      letter-spacing: 0;
+    }
+
+    .name {
+      background: linear-gradient(180deg, #ffffff 0%, #f3d3dc 55%, var(--rose) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(199, 106, 134, .35);
+      padding: 0 .02em;
+      white-space: nowrap;
+    }
+
+    .amp {
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: .7em;
+      color: var(--gold);
+      opacity: .9;
+      line-height: 1;
+      flex-shrink: 0;
+      transform: translateY(-.02em);
+    }
+
+    .divider {
+      width: min(260px, 60%);
+      height: 1px;
+      margin: clamp(24px, 3.5vw, 36px) auto clamp(36px, 5vw, 56px);
+      background: linear-gradient(90deg, transparent, var(--rose) 50%, transparent);
+      opacity: .7;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: clamp(14px, 3vw, 40px);
+    }
+
+    .polaroid {
+      --rot: 0deg;
+      --y: 0px;
+      position: relative;
+      width: clamp(240px, 34vw, 400px);
+      padding: clamp(12px, 1.8vw, 18px);
+      border-radius: 3px;
+      cursor: pointer;
+
+      background: linear-gradient(165deg, #fffdfb 0%, var(--polaroid) 45%, #ecdfd5 100%);
+      box-shadow:
+        0 24px 55px rgba(0, 0, 0, .6),
+        0 4px 0 rgba(0, 0, 0, .18),
+        inset 0 1px 0 rgba(255, 255, 255, .9);
+
+      transform: rotate(var(--rot)) translateY(var(--y));
+      transition: transform .55s cubic-bezier(.2, .9, .25, 1),
+                  box-shadow .55s ease;
+      animation: pop .9s cubic-bezier(.2, .9, .25, 1) backwards;
+      will-change: transform;
+    }
+
+    .gallery .polaroid:only-child { --rot: -3deg; animation-delay: .3s; }
+
+    .polaroid:hover,
+    .polaroid.is-active {
+      z-index: 5;
+      transform: rotate(0deg) translateY(calc(var(--y) - 16px)) scale(1.04);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .75);
+    }
+
+    .photo {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--wine-800);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.03) sepia(.12);
+      transition: transform .8s cubic-bezier(.2, .9, .25, 1), filter .5s ease;
+    }
+
+    .polaroid:hover .photo img,
+    .polaroid.is-active .photo img {
+      transform: scale(1.06);
+      filter: saturate(1.15) contrast(1.05) sepia(0);
+    }
+
+    .quote {
+      max-width: 660px;
+      margin: clamp(40px, 6vw, 72px) auto 0;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(20px, 3.4vw, 40px);
+      line-height: 1.45;
+      color: #f5dde4;
+      text-shadow: 0 0 30px rgba(199, 106, 134, .45);
+      padding: 0 8px;
+    }
+
+    /* ============================================================
+       WHITE SECTION
+       ============================================================ */
+    .white-section {
+      position: relative;
+      background: var(--white-bg);
+      color: var(--wine-600);
+      padding:
+        clamp(48px, 8vw, 120px)
+        calc(var(--pad-x) + var(--safe-r))
+        calc(clamp(48px, 8vw, 120px) + var(--safe-b))
+        calc(var(--pad-x) + var(--safe-l));
+      z-index: 2;
+    }
+
+    .white-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(48px, 8vw, 110px);
+    }
+
+    /* ============================================================
+       ЗАГОЛОВКИ С ЗАВИТКАМИ — MARCK SCRIPT
+       ============================================================ */
+    .section-title {
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(40px, 5.6vw, 72px);
+      line-height: 1.1;
+      letter-spacing: 0;
+      color: var(--wine-600);
+      text-align: center;
+      margin-bottom: clamp(28px, 4vw, 48px);
+      word-break: break-word;
+      text-shadow: 0 2px 24px rgba(142, 31, 61, .12);
+    }
+
+    /* ============================================================
+       ПРИГЛАШЕНИЕ ПЕРЕД КАЛЕНДАРЁМ
+       ============================================================ */
+    .invitation {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(14px, 2vw, 22px);
+    }
+
+    .invitation-title {
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(34px, 4.6vw, 60px);
+      line-height: 1.15;
+      color: var(--wine-600);
+      letter-spacing: 0;
+      text-shadow: 0 2px 24px rgba(142, 31, 61, .12);
+    }
+
+    .invitation-text {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(22px, 3vw, 38px);
+      line-height: 1.4;
+      color: var(--cherry);
+      opacity: .95;
+      max-width: 640px;
+    }
+
+    /* ============================================================
+       КРУГЛАЯ КНОПКА МУЗЫКИ
+       ============================================================ */
+    .music-row { display: flex; justify-content: center; }
+
+    .music-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .music-btn {
+      width: clamp(64px, 8vw, 84px);
+      height: clamp(64px, 8vw, 84px);
+      border-radius: 50%;
+      border: 1.5px solid rgba(109, 21, 48, .35);
+      background: transparent;
+      color: var(--wine-600);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .35s ease;
+      user-select: none;
+      padding: 0;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .music-btn::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(109, 21, 48, .12);
+      pointer-events: none;
+      transition: all .35s ease;
+    }
+
+    .music-btn:hover {
+      background: rgba(109, 21, 48, .07);
+      border-color: rgba(109, 21, 48, .6);
+      transform: translateY(-3px);
+    }
+    .music-btn:hover::after {
+      border-color: rgba(109, 21, 48, .3);
+      inset: -12px;
+    }
+
+    .music-btn.playing {
+      background: linear-gradient(135deg, var(--cherry), var(--wine-600));
+      color: #fdf7f2;
+      border-color: transparent;
+      box-shadow: 0 16px 40px rgba(142, 31, 61, .45);
+    }
+    .music-btn.playing::after {
+      border-color: rgba(142, 31, 61, .35);
+      inset: -14px;
+    }
+
+    .music-icon {
+      width: 40%;
+      height: 40%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .music-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .music-btn.playing .music-icon {
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .music-text {
+      font-size: clamp(10px, 1.1vw, 12px);
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--wine-600);
+      opacity: .75;
+      text-align: center;
+      line-height: 1.3;
+      transition: color .35s ease;
+    }
+
+    .music-block.is-playing .music-text {
+      color: var(--cherry);
+      opacity: 1;
+    }
+
+    /* ============================================================
+       КАЛЕНДАРЬ
+       ============================================================ */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: clamp(4px, 1vw, 8px);
+    }
+
+    .cal-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: clamp(10px, 1.6vw, 16px) 2px clamp(8px, 1.4vw, 14px);
+      border-radius: clamp(10px, 1.4vw, 14px);
+      transition: all .3s ease;
+      min-width: 0;
+    }
+
+    .cal-day:hover {
+      background: rgba(109, 21, 48, .06);
+      transform: translateY(-3px);
+    }
+
+    .cal-weekday {
+      font-size: clamp(9px, .9vw, 10px);
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cherry);
+      opacity: .55;
+    }
+
+    .cal-date {
+      font-family: 'Czizh', 'Montserrat', sans-serif;
+      font-size: clamp(22px, 3.4vw, 44px);
+      line-height: 1;
+      color: var(--wine-600);
+      font-weight: normal;
+    }
+
+    .cal-month {
+      font-size: clamp(8px, .75vw, 9px);
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cherry);
+      opacity: .5;
+    }
+
+    .cal-day.is-start {
+      background: linear-gradient(135deg, var(--cherry), var(--wine-600));
+      box-shadow: 0 12px 26px rgba(142, 31, 61, .35);
+    }
+
+    .cal-day.is-start .cal-weekday,
+    .cal-day.is-start .cal-date,
+    .cal-day.is-start .cal-month {
+      color: #fdf7f2;
+      opacity: 1;
+    }
+
+    /* ============================================================
+       МЕСТО ВСТРЕЧИ
+       ============================================================ */
+    .meeting {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: clamp(32px, 5vw, 56px);
+    }
+
+    .meeting-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 0;
+      max-width: 720px;
+    }
+
+    .meeting-title {
+      font-family: 'Marck Script', 'Caveat', cursive;
+      font-weight: 400;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: 1.1;
+      letter-spacing: 0;
+      color: var(--wine-600);
+      margin-bottom: clamp(12px, 1.6vw, 18px);
+      word-break: break-word;
+      text-shadow: 0 2px 24px rgba(142, 31, 61, .12);
+    }
+
+    .meeting-sub {
+      font-size: clamp(17px, 1.8vw, 24px);
+      line-height: 1.5;
+      color: var(--cherry);
+      opacity: .9;
+      max-width: 560px;
+      margin-bottom: clamp(24px, 3vw, 36px);
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(16px, 1.8vw, 22px) clamp(30px, 3.4vw, 46px);
+      border-radius: 100px;
+      border: 1.8px solid var(--wine-600);
+      background: transparent;
+      color: var(--wine-600);
+      font-size: clamp(12px, 1.2vw, 15px);
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all .35s ease;
+      cursor: pointer;
+      max-width: 100%;
+      line-height: 1.2;
+    }
+
+    .map-btn:hover {
+      background: var(--wine-600);
+      color: #fdf7f2;
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(109, 21, 48, .35);
+    }
+
+    .map-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .meeting-visual {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: clamp(8px, 2vw, 26px);
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+
+    .meeting-pointer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      margin-bottom: clamp(40px, 6vw, 80px);
+      flex-shrink: 0;
+    }
+
+    .meeting-note {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.05;
+      color: var(--cherry);
+      text-align: right;
+      transform: rotate(-4deg);
+    }
+
+    .arrow-svg {
+      width: clamp(100px, 12vw, 170px);
+      height: auto;
+      color: var(--cherry);
+      opacity: .85;
+      margin-top: 6px;
+    }
+
+    /* Фото локации — увеличено */
+    .meeting-polaroid {
+      --rot: 5deg;
+      --y: 0;
+      width: clamp(280px, 38vw, 480px);
+      animation-delay: .3s;
+      cursor: default;
+      flex-shrink: 0;
+    }
+
+    .meeting-polaroid:hover {
+      transform: rotate(var(--rot)) translateY(var(--y));
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, .55),
+        0 3px 0 rgba(0, 0, 0, .15),
+        inset 0 1px 0 rgba(255, 255, 255, .9);
+    }
+
+    .meeting-polaroid:hover .photo img {
+      transform: none;
+      filter: saturate(1.05) contrast(1.03) sepia(.12);
+    }
+
+    /* ============================================================
+       ТАЙМИНГ
+       ============================================================ */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .timeline-list {
+      width: 100%;
+      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .tl-item {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(4px, 0.8vw, 8px);
+      max-width: 55%;
+    }
+
+    .tl-left {
+      align-self: flex-start;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .tl-right {
+      align-self: flex-end;
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .tl-time {
+      font-family: 'Czizh', 'Montserrat', sans-serif;
+      font-weight: normal;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 1;
+      color: var(--wine-600);
+      letter-spacing: .01em;
+    }
+
+    .tl-desc {
+      font-size: clamp(13px, 1.4vw, 16px);
+      line-height: 1.5;
+      color: var(--cherry);
+      opacity: .88;
+      max-width: 260px;
+    }
+
+    .tl-arrow {
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin: clamp(6px, 0.8vw, 12px) 0;
+      line-height: 0;
+    }
+
+    .tl-arrow svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      color: var(--cherry);
+      opacity: .85;
+      overflow: visible;
+    }
+
+    /* ============================================================
+       ДРЕСС-КОД
+       ============================================================ */
+    .dress-code {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .dress-text {
+      font-size: clamp(15px, 1.6vw, 20px);
+      line-height: 1.6;
+      color: var(--cherry);
+      opacity: .92;
+      max-width: 620px;
+      margin: 0 auto clamp(36px, 5vw, 56px);
+    }
+
+    .hearts-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(16px, 4vw, 46px);
+      flex-wrap: wrap;
+    }
+
+    .heart-color {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: transform .35s ease;
+    }
+
+    .heart-color:hover { transform: translateY(-6px); }
+
+    .heart-svg {
+      width: clamp(56px, 8vw, 96px);
+      height: clamp(56px, 8vw, 96px);
+      display: block;
+      filter: drop-shadow(0 10px 22px rgba(109, 21, 48, .25));
+      transition: filter .35s ease;
+    }
 
     .heart-color:hover .heart-svg {
       filter: drop-shadow(0 18px 32px rgba(109, 21, 48, .4));
@@ -10,6 +744,25 @@
       text-transform: uppercase;
       color: var(--cherry);
       opacity: .7;
+    }
+
+    /* ============================================================
+       ПОЖЕЛАНИЯ
+       ============================================================ */
+    .wishes-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .wishes-text {
+      font-size: clamp(15px, 1.6vw, 20px);
+      line-height: 1.7;
+      color: var(--cherry);
+      opacity: .92;
+      max-width: 660px;
+      margin: 0 auto;
     }
 
     /* ============================================================
@@ -272,22 +1025,24 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: clamp(28px, 4vw, 48px);
+      gap: clamp(28px, 4vw, 44px);
     }
 
     .final-text {
       font-family: 'Marck Script', 'Caveat', cursive;
       font-weight: 400;
-      font-size: clamp(44px, 6.5vw, 82px);
+      font-size: clamp(34px, 5.6vw, 76px);
       line-height: 1.1;
       color: var(--wine-600);
       letter-spacing: 0;
       text-shadow: 0 4px 30px rgba(142, 31, 61, .15);
+      white-space: nowrap;
     }
 
+    /* Фото — уменьшено */
     .final-photo {
       width: 100%;
-      max-width: 720px;
+      max-width: 480px;
       margin: 0 auto;
       display: block;
     }
@@ -332,9 +1087,9 @@
 
     /* Сердечки — каскад */
     .heart-color:nth-child(1) { --reveal-delay: .0s; }
-    .heart-color:nth-child(2) { --reveal-delay: .12s; }
-    .heart-color:nth-child(3) { --reveal-delay: .24s; }
-    .heart-color:nth-child(4) { --reveal-delay: .36s; }
+    .heart-color:nth-child(2) { --reveal-delay: .15s; }
+    .heart-color:nth-child(3) { --reveal-delay: .30s; }
+    .heart-color:nth-child(4) { --reveal-delay: .45s; }
 
     /* Заголовки секций — короткая задержка после появления */
     .section-title.reveal { --reveal-delay: .05s; }
@@ -369,7 +1124,7 @@
        ПЛАНШЕТЫ (≤ 1024px)
        ============================================================ */
     @media (max-width: 1024px) {
-      .meeting-polaroid { width: clamp(200px, 28vw, 320px); }
+      .meeting-polaroid { width: clamp(240px, 34vw, 400px); }
       .arrow-svg { width: clamp(90px, 11vw, 140px); }
 
       .tl-item { max-width: 58%; }
@@ -389,12 +1144,12 @@
       }
 
       .names {
-        font-size: clamp(26px, 9vw, 50px);
-        gap: 0 6px;
+        font-size: clamp(22px, 7.5vw, 44px);
+        gap: 0 8px;
         padding: 0 2px;
       }
       .name { padding: 0; }
-      .amp  { font-size: .7em; }
+      .amp  { font-size: .75em; }
 
       .divider { margin: 18px auto 28px; width: min(180px, 60%); }
 
@@ -408,8 +1163,23 @@
       /* Заголовки на мобильном */
       .section-title { font-size: clamp(38px, 11vw, 56px); margin-bottom: 22px; }
       .meeting-title { font-size: clamp(40px, 12vw, 60px); }
-      .final-text    { font-size: clamp(42px, 13vw, 62px); }
       .form-success-title { font-size: clamp(38px, 11vw, 52px); }
+
+      /* Финальный текст — всегда в одну строку */
+      .final-text {
+        font-size: clamp(20px, 6vw, 40px);
+        white-space: nowrap;
+      }
+
+      /* Финальное фото — компактнее */
+      .final-photo { max-width: min(70vw, 320px); }
+
+      /* Приглашение */
+      .invitation-title { font-size: clamp(30px, 9vw, 44px); }
+      .invitation-text  { font-size: clamp(20px, 6vw, 28px); }
+
+      /* Пожелания */
+      .wishes-text { font-size: 14px; line-height: 1.6; }
 
       .music-btn { width: 70px; height: 70px; }
       .music-btn::after { inset: -8px; }
@@ -429,10 +1199,12 @@
       .map-btn svg { width: 15px; height: 15px; }
 
       .meeting-visual { gap: 6px; }
-      .meeting-pointer { margin-bottom: 36px; gap: 2px; max-width: 130px; }
+      .meeting-pointer { margin-bottom: 40px; gap: 2px; max-width: 130px; }
       .meeting-note { font-size: 18px; line-height: 1.05; transform: rotate(-5deg); }
       .arrow-svg { width: 76px; margin-top: 2px; }
-      .meeting-polaroid { width: clamp(160px, 46vw, 220px); --rot: 4deg; }
+
+      /* Фото локации — крупнее */
+      .meeting-polaroid { width: clamp(220px, 58vw, 320px); --rot: 4deg; }
 
       .timeline-list { max-width: 100%; }
       .tl-item { max-width: 56%; }
@@ -465,9 +1237,7 @@
 
       .form-success-text { font-size: 13px; }
 
-      .final-photo { max-width: 100%; }
-
-      /* Меньше дистанция сдвига на мобильном — чтобы анимация не "дёргала" */
+      /* Меньше дистанция сдвига на мобильном */
       .reveal       { transform: translate3d(0, 32px, 0); }
       .reveal-left  { transform: translate3d(-32px, 0, 0); }
       .reveal-right { transform: translate3d(32px, 0, 0); }
@@ -478,8 +1248,11 @@
        УЗКИЕ МОБИЛЬНЫЕ (≤ 480px)
        ============================================================ */
     @media (max-width: 480px) {
-      .names { font-size: clamp(22px, 9vw, 40px); gap: 0 5px; }
+      .names { font-size: clamp(20px, 7.5vw, 34px); gap: 0 6px; }
       .polaroid { width: min(88vw, 340px); padding: 11px; }
+
+      /* Финальный текст ещё компактнее */
+      .final-text { font-size: clamp(20px, 6vw, 32px); }
 
       .cal-day { padding: 8px 0 6px; border-radius: 7px; }
       .cal-weekday { font-size: 7px; }
@@ -490,10 +1263,10 @@
       .meeting-sub   { font-size: 13px; margin-bottom: 16px; }
 
       .map-btn { padding: 12px 22px; font-size: 10px; letter-spacing: .08em; }
-      .meeting-pointer { margin-bottom: 30px; max-width: 115px; }
+      .meeting-pointer { margin-bottom: 34px; max-width: 115px; }
       .meeting-note    { font-size: 16px; }
       .arrow-svg       { width: 66px; }
-      .meeting-polaroid { width: clamp(150px, 44vw, 200px); }
+      .meeting-polaroid { width: clamp(200px, 58vw, 280px); }
 
       .tl-item { max-width: 54%; }
       .tl-time { font-size: clamp(38px, 13vw, 54px); }
@@ -512,17 +1285,20 @@
        ОЧЕНЬ УЗКИЕ (≤ 360px)
        ============================================================ */
     @media (max-width: 360px) {
-      .names { font-size: clamp(20px, 9vw, 32px); gap: 0 4px; }
+      .names { font-size: clamp(18px, 7.5vw, 28px); gap: 0 5px; }
       .polaroid { width: min(90vw, 300px); padding: 10px; }
+
+      /* Финальный текст */
+      .final-text { font-size: clamp(18px, 6vw, 26px); }
 
       .cal-date { font-size: 15px; }
       .cal-weekday { font-size: 6.5px; }
       .cal-month { display: none; }
 
-      .meeting-pointer { margin-bottom: 26px; max-width: 100px; }
+      .meeting-pointer { margin-bottom: 30px; max-width: 100px; }
       .meeting-note    { font-size: 15px; }
       .arrow-svg       { width: 56px; }
-      .meeting-polaroid { width: clamp(140px, 42vw, 175px); }
+      .meeting-polaroid { width: clamp(180px, 60vw, 240px); }
 
       .tl-item { max-width: 52%; }
       .tl-time { font-size: clamp(34px, 12vw, 46px); }
@@ -541,7 +1317,7 @@
       .card { max-width: 1200px; }
       .white-inner { max-width: 1200px; }
       .polaroid { width: 440px; }
-      .meeting-polaroid { width: 420px; }
+      .meeting-polaroid { width: 520px; }
       .timeline-list { max-width: 900px; }
     }
 
@@ -554,7 +1330,7 @@
         padding-top: calc(28px + var(--safe-t));
         padding-bottom: calc(28px + var(--safe-b));
       }
-      .names { font-size: clamp(36px, 7vw, 64px); }
+      .names { font-size: clamp(28px, 6vw, 56px); }
       .polaroid { width: clamp(200px, 32vw, 280px); }
       .quote { margin-top: 18px; font-size: clamp(18px, 2.4vw, 22px); }
     }
@@ -601,9 +1377,9 @@
     <main class="card">
 
       <h1 class="names">
-        <span class="name">Alexander</span>
+        <span class="name">Александр</span>
         <span class="amp">&amp;</span>
-        <span class="name">Maria</span>
+        <span class="name">Мария</span>
       </h1>
 
       <div class="divider"></div>
@@ -639,6 +1415,15 @@
           </button>
           <span class="music-text" id="musicText">Нажмите чтобы включить</span>
         </div>
+      </div>
+
+      <!-- ПРИГЛАШЕНИЕ -->
+      <div class="invitation">
+        <h2 class="invitation-title reveal">Приглашаем на нашу свадьбу</h2>
+        <p class="invitation-text reveal">
+          Дорогие друзья и близкие! Мы с радостью приглашаем вас разделить с нами
+          самый важный и счастливый день нашей жизни.
+        </p>
       </div>
 
       <!-- Календарь -->
@@ -816,6 +1601,17 @@
         </div>
       </div>
 
+      <!-- Пожелания -->
+      <div class="wishes-block">
+        <h2 class="section-title reveal">Пожелания</h2>
+
+        <p class="wishes-text reveal">
+          Дорогие гости! Вместо цветов мы будем рады бутылочке хорошего вина —
+          она станет частью нашей семейной коллекции и будет открыта в особенный вечер.
+          А самое главное — будьте рядом и улыбайтесь, это лучший подарок!
+        </p>
+      </div>
+
       <!-- Анкета гостя -->
       <div class="guest-form">
         <h2 class="section-title reveal">Анкета гостя</h2>
@@ -940,7 +1736,7 @@
       'use strict';
 
       /* =========================================================
-         REVEAL-АНИМАЦИИ ПРИ ПРОКРУТКЕ (IntersectionObserver)
+         REVEAL-АНИМАЦИИ ПРИ ПРОКРУТКЕ
          ========================================================= */
       var revealEls = document.querySelectorAll(
         '.reveal, .reveal-left, .reveal-right, .reveal-zoom'
@@ -949,7 +1745,6 @@
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (reducedMotion || !('IntersectionObserver' in window)) {
-        // Если пользователь против анимаций или браузер старый — показать всё сразу
         revealEls.forEach(function (el) { el.classList.add('is-visible'); });
       } else {
         var observer = new IntersectionObserver(function (entries) {
